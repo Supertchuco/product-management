@@ -1,0 +1,11 @@
+{
+  "productName": "Kisuco",
+  "productDescription": "suco",
+  "images":[
+    {
+      "imageType": "jpeg"
+    }, {
+      "imageType": "png"
+    }
+  ]
+}
