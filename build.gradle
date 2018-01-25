@@ -8,7 +8,6 @@ buildscript {
 			url "http://www.datanucleus.org/downloads/maven2/"
 
 		}
-
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -18,9 +17,6 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
-
-
-
 
 jar.baseName = 'product-management'
 
@@ -39,7 +35,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('com.h2database:h2')
-//	compile group: 'oracle', name: 'ojdbc6', version: '11.2.0.3'
 	compileOnly('org.projectlombok:lombok')
 	compile fileTree(dir: 'oracle', include: ['*.jar'])
 	testCompile('org.springframework.boot:spring-boot-starter-test')
@@ -49,5 +44,4 @@ dependencies {
 	compile group: 'commons-io', name: 'commons-io', version: '2.6'
 	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.4.1'
-
 }

@@ -24,8 +24,8 @@ public class SwaggerConfig {
 
     private Predicate<String> postPaths() {
         return or(
-                regex("/api/product.*"),
-                regex("/api/image.*")
+                regex("/product.*"),
+                regex("/image.*")
         );
     }
 

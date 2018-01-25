@@ -23,31 +23,6 @@ public class Image {
     @JsonBackReference
     private Product product;
 
-/*    @ManyToOne
-    @JoinColumn(name = "productId")
-    private Product product;*/
-
-/*    @ManyToMany(mappedBy = "images")
-    @JsonBackReference
-    private List<Product> products;*/
-
-/*    @ManyToOne
-    @JoinTable(name="product_images",
-            joinColumns={@JoinColumn(name="product_id")},
-            inverseJoinColumns={@JoinColumn(name="images_id")})
-    private Product product;*/
-
-/*
-    @ManyToOne
-    @JoinTable(name = "MY_JOIN_TABLE",
-            joinColumns = {@JoinColumn(name = "MY_ENTITY_B_FK", insertable = false,
-                    updatable = false, referencedColumnName = "myIdB")},
-            inverseJoinColumns = {@JoinColumn(name = "MY_ENTITY_A_FK", insertable = false,
-                    updatable = false, referencedColumnName = "myIdA")}
-    )
-    private Product product;
-*/
-
     public Image(String imageType) {
         this.imageType = imageType;
     }
