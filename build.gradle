@@ -6,7 +6,6 @@ buildscript {
 		mavenCentral()
 		maven {
 			url "http://www.datanucleus.org/downloads/maven2/"
-
 		}
 	}
 	dependencies {
@@ -27,7 +26,6 @@ sourceCompatibility = 1.8
 repositories {
 	mavenCentral()
 }
-
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
