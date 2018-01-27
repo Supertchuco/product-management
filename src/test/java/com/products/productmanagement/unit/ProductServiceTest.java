@@ -96,9 +96,10 @@ public class ProductServiceTest {
         assertEquals(products.iterator().next().getProductDescription(), productFoundDB.getProductDescription());
     }
 
-    @Test(expected = ProductNotFoundException.class)
+    @Test
     public void findProductByNameWhenNotFoundOnDatabaseTest() {
-        productService.findProductByName("TestProductName");
+        Collection<Product> products = productService.findProductByName("TestProductName");
+        assertEquals(0, products.size());
     }
 
     @Test(expected = DuplicatedProductNameOnDatabaseException.class)

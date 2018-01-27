@@ -44,8 +44,8 @@ Step to running the project:
 
   In both of cases you can check if the application is running accessing this url "http://localhost:8090/productManagement/api/health" (actuator feature);
 
-  Important Note: This project is configured to create the database structure every time that the application is started, if you
-  want to disable it, you need to comment (#) or delete this line "spring.jpa.hibernate.ddl-auto=create" in application.properties.
+  Important Note: This project is configured to create the database structure every time that the application is started with a specified
+  data (you can check it in DatabaseLoader class), if you   want to disable it, you need to comment (#) or delete this line "spring.jpa.hibernate.ddl-auto=create" in application.properties.
    This project use a memory database (Spring H2) but also it is configured to use Oracle database, to use it
   you just need to configure the connection in application.properties (there is my configuration commented
   in application.properties, you can follow it like an example).

@@ -90,9 +90,10 @@ public class ImageServiceTest {
         assertEquals(images.iterator().next().getProduct(), imageTest.getProduct());
     }
 
-    @Test(expected = ImageNotFoundException.class)
+    @Test
     public void findImageByTypeWhenNotFoundOnDatabaseTest() {
-        imageService.findImageByType("photo");
+        Collection<Image> images = imageService.findImageByType("photo");
+        assertEquals(0, images.size());
     }
 
     @Test(expected = DuplicatedImageTypeOnDatabaseException.class)

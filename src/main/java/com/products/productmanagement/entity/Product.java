@@ -2,13 +2,15 @@ package com.products.productmanagement.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Data
-@Entity(name = "product")
-@Table(name = "product")
+@Entity(name = "Product")
+@Table(name = "Product")
+@NoArgsConstructor
 public class Product {
 
     @Id
@@ -22,7 +24,7 @@ public class Product {
     @Column
     private String productDescription;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Collection<Image> images;
 
@@ -45,6 +47,9 @@ public class Product {
         this.productDescription = productDescription;
     }
 
-    public Product() {
+    public Product(String productName, String productDescription, Collection<Image> images) {
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.images = images;
     }
 }

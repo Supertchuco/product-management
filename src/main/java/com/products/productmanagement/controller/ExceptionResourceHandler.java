@@ -25,7 +25,7 @@ public class ExceptionResourceHandler {
     }
 
     @ExceptionHandler(ProductNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public Error productNotFoundException(ProductNotFoundException exception) {
         return createErrorMessage(exception.getMessage());
@@ -84,6 +84,13 @@ public class ExceptionResourceHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public Error deleteImageException(DeleteImageException exception) {
+        return createErrorMessage(exception.getMessage());
+    }
+
+    @ExceptionHandler(ImageAssociatedProductException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public Error imageAssociatedProductException(ImageAssociatedProductException exception) {
         return createErrorMessage(exception.getMessage());
     }
 

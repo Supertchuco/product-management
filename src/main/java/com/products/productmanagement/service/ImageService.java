@@ -1,6 +1,7 @@
 package com.products.productmanagement.service;
 
 import com.products.productmanagement.entity.Image;
+import com.products.productmanagement.entity.Product;
 import com.products.productmanagement.exception.*;
 import com.products.productmanagement.repository.ImageRepository;
 import org.apache.commons.collections4.CollectionUtils;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 @Service
 public class ImageService {
@@ -18,7 +20,8 @@ public class ImageService {
 
     public Image updateImageByType(String type, Image image) {
         Collection<Image> databaseImages = imageRepository.findByImageType(type);
-        validateImagesFoundOnDatabase(databaseImages, type);
+        validateRepeatedImagesOnDatabase(databaseImages, type);
+        validateImageNotFoundOnDatabase(databaseImages, type);
         Image databaseImage = databaseImages.iterator().next();
         try {
             databaseImage.setImageType(image.getImageType());
@@ -43,7 +46,7 @@ public class ImageService {
 
     public Collection<Image> findImageByType(String type) {
         Collection<Image> images = imageRepository.findByImageType(type);
-        validateImagesFoundOnDatabase(images, type);
+        validateRepeatedImagesOnDatabase(images, type);
         return images;
     }
 
@@ -53,7 +56,9 @@ public class ImageService {
 
     public void deleteImageByType(String type) {
         Collection<Image> databaseImages = imageRepository.findByImageType(type);
-        validateImagesFoundOnDatabase(databaseImages, type);
+        validateImageNotFoundOnDatabase(databaseImages, type);
+        validateRepeatedImagesOnDatabase(databaseImages, type);
+        validateIfImageIsAssociatedWithProduct(databaseImages.iterator().next());
         try {
             imageRepository.deleteByImageType(type);
         } catch (Exception e) {
@@ -72,11 +77,21 @@ public class ImageService {
         return imagesReturn;
     }
 
-    private void validateImagesFoundOnDatabase(Collection<Image> images, String imageType) {
+    private void validateImageNotFoundOnDatabase(Collection<Image> images, String imageType) {
         if (CollectionUtils.isEmpty(images)) {
             throw new ImageNotFoundException(String.format("Unable to find image with this type [%s]", imageType));
-        } else if (CollectionUtils.size(images) > 1) {
+        }
+    }
+
+    private void validateRepeatedImagesOnDatabase(Collection<Image> images, String imageType) {
+        if (CollectionUtils.size(images) > 1) {
             throw new DuplicatedImageTypeOnDatabaseException(String.format(" Database Error - this image type [%s] is duplicated in database", imageType));
+        }
+    }
+
+    private void validateIfImageIsAssociatedWithProduct(Image image) {
+        if (Objects.nonNull(image.getProduct())) {
+            throw new ImageAssociatedProductException(String.format("Unable to delete image with this type [%s], because this Image is associated with a Product(s)", image.getImageType()));
         }
     }
 }

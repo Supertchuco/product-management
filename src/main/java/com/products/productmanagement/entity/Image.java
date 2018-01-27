@@ -2,12 +2,14 @@ package com.products.productmanagement.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity(name = "Image")
 @Table(name = "Image")
+@NoArgsConstructor
 public class Image {
 
     @Id
@@ -25,8 +27,5 @@ public class Image {
 
     public Image(String imageType) {
         this.imageType = imageType;
-    }
-
-    public Image() {
     }
 }

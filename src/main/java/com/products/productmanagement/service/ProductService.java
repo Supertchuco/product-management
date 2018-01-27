@@ -21,7 +21,8 @@ public class ProductService {
 
     public Product updateProductByName(String productName, Product product) {
         Collection<Product> databaseProducts = productRepository.findByProductName(productName);
-        validateProductsFoundOnDatabase(databaseProducts, productName);
+        validateProductsNotFoundOnDatabase(databaseProducts, productName);
+        validateRepeatedProductsOnDatabase(databaseProducts, productName);
         Product databaseProduct = databaseProducts.iterator().next();
         try {
             databaseProduct.setProductName(product.getProductName());
@@ -56,7 +57,7 @@ public class ProductService {
 
     public Collection<Product> findProductByName(String name) {
         Collection<Product> databaseProducts = productRepository.findByProductName(name);
-        validateProductsFoundOnDatabase(databaseProducts, name);
+        validateRepeatedProductsOnDatabase(databaseProducts, name);
         return databaseProducts;
     }
 
@@ -66,7 +67,8 @@ public class ProductService {
 
     public void deleteProductByName(String name) {
         Collection<Product> databaseProducts = productRepository.findByProductName(name);
-        validateProductsFoundOnDatabase(databaseProducts, name);
+        validateProductsNotFoundOnDatabase(databaseProducts, name);
+        validateRepeatedProductsOnDatabase(databaseProducts, name);
         try {
             productRepository.deleteByProductName(name);
         } catch (Exception e) {
@@ -74,10 +76,14 @@ public class ProductService {
         }
     }
 
-    private void validateProductsFoundOnDatabase(Collection<Product> products, String productName) {
+    private void validateProductsNotFoundOnDatabase(Collection<Product> products, String productName) {
         if (CollectionUtils.isEmpty(products)) {
             throw new ProductNotFoundException(String.format("Unable to find product with name %s", productName));
-        } else if (CollectionUtils.size(products) > 1) {
+        }
+    }
+
+    private void validateRepeatedProductsOnDatabase(Collection<Product> products, String productName) {
+        if (CollectionUtils.size(products) > 1) {
             throw new DuplicatedProductNameOnDatabaseException(String.format(" Database Error - this product name [%s] is duplicated in database", productName));
         }
     }

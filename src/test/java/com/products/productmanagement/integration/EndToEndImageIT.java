@@ -39,28 +39,30 @@ public class EndToEndImageIT {
     }
 
     @Test
-    public void shouldReturn200WhenInsertImage(){
+    public void shouldReturn200WhenInsertImage() {
         String payload = readJSON("request/image/insertImage200StatusResponseRequest.json");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<String>(payload, headers);
-        ResponseEntity<String> response = testRestTemplate.exchange(requestEndpoint +  "/save", HttpMethod.POST, entity, String.class);
+        ResponseEntity<String> response = testRestTemplate.exchange(requestEndpoint + "/save", HttpMethod.POST, entity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
-    public void shouldReturn200AndAllImagesInDBWhenCallFindAllImages(){
+    public void shouldReturn200AndAllImagesInDBWhenCallFindAllImages() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<String>(headers);
         ResponseEntity<String> response = testRestTemplate.exchange(requestEndpoint + "/findAll", HttpMethod.GET, entity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(true, StringUtils.contains(response.toString(), "png"));
-       // assertEquals(true, StringUtils.contains(response.toString(), "jpeg"));
+        assertEquals(true, StringUtils.contains(response.toString(), "photo-3"));
+        assertEquals(true, StringUtils.contains(response.toString(), "jpeg"));
+        // assertEquals(true, StringUtils.contains(response.toString(), "jpeg"));
     }
 
     @Test
-    public void shouldReturn200AndOneImageFoundByType(){
+    public void shouldReturn200AndOneImageFoundByType() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<String>(headers);
@@ -70,7 +72,7 @@ public class EndToEndImageIT {
     }
 
     @Test
-    public void shouldReturn200AndWhenDeleteImageByType(){
+    public void shouldReturn200WhenDeleteImageByType() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<String>(headers);
@@ -80,7 +82,17 @@ public class EndToEndImageIT {
     }
 
     @Test
-    public void shouldReturn200WhenEditImage(){
+    public void shouldReturn400WhenDeleteImageByTypeAndImageIsAssociatedWithAProduct() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        ResponseEntity<String> response = testRestTemplate.exchange(requestEndpoint + "/deleteByType/photo-3", HttpMethod.DELETE, entity, String.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(true, StringUtils.contains(response.toString(), "Unable to delete image with this type [photo-3], because this Image is associated with a Product(s)"));
+    }
+
+    @Test
+    public void shouldReturn200WhenEditImage() {
         String payload = readJSON("request/image/imageEdit200Requests.json");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -88,7 +100,7 @@ public class EndToEndImageIT {
         RestTemplate restTemplate = new RestTemplate();
         HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
         restTemplate.setRequestFactory(requestFactory);
-        ResponseEntity<String> response = restTemplate.exchange(requestEndpoint +  "/editByType/png", HttpMethod.PATCH, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(requestEndpoint + "/editByType/png", HttpMethod.PATCH, entity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(true, StringUtils.contains(response.toString(), "photo"));
     }
