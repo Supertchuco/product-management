@@ -1,12 +1,12 @@
 This is an API to  products management, I developed this API using Intellij IDE and these technologies:
-	- Springboot;
-	- Gradle;
-	- Oracle Database;
-	- H2 (memory database);
-	- Swagger;
-	- Lombok;
-	- Actuator;
-	- Spring rest.
+ - Springboot;
+ - Gradle;
+ - Oracle Database;
+ - H2 (memory database);
+ - Swagger;
+ - Lombok;
+ - Actuator;
+ - Spring rest.
 
 This API allow these operations:
  * Product:
@@ -39,8 +39,8 @@ Step to running the project:
     -Run the major class ProductManagementApplication.
 
  * Without an IDE:
-    -Execute the command "gradlew clean build" inside the project in a cmd prompt;
-    -Execute command "java -jar <Jar Name>.jar" in "product-management\build\libs" directory.
+  - Execute the command "gradlew clean build" inside the project in a cmd prompt;
+  - Execute command "java -jar <Jar Name>.jar" in "product-management\build\libs" directory.
 
   In both of cases you can check if the application is running accessing this url "http://localhost:8090/productManagement/api/health" (actuator feature);
 
