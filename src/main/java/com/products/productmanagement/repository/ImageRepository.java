@@ -12,13 +12,8 @@ public interface ImageRepository extends CrudRepository<Image, Long> {
 
     Collection<Image> findAll();
 
-    Image findByImageId(int id);
-
     @Transactional
     void deleteByImageType(String type);
-
-    @Transactional
-    void deleteByImageId(int id);
 
     @Transactional
     Image save(Image image);

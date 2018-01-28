@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity(name = "Image")
 @Table(name = "Image")
 @NoArgsConstructor
-public class Image {
+public class Image implements Serializable {
 
     @Id
     @GeneratedValue
@@ -28,4 +29,5 @@ public class Image {
     public Image(String imageType) {
         this.imageType = imageType;
     }
+
 }

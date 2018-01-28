@@ -85,15 +85,15 @@ public class ImageServiceTest {
         Mockito.when(imageRepository.findByImageType("photo")).thenReturn(new ArrayList<Image>() {{
             add(imageTest);
         }});
-        Collection<Image> images = imageService.findImageByType("photo");
-        assertEquals(images.iterator().next().getImageType(), imageTest.getImageType());
-        assertEquals(images.iterator().next().getProduct(), imageTest.getProduct());
+        Image image = imageService.findImageByType("photo");
+        assertEquals(image.getImageType(), imageTest.getImageType());
+        assertEquals(image.getProduct(), imageTest.getProduct());
     }
 
     @Test
     public void findImageByTypeWhenNotFoundOnDatabaseTest() {
-        Collection<Image> images = imageService.findImageByType("photo");
-        assertEquals(0, images.size());
+        Image image = imageService.findImageByType("photo");
+        assertEquals(null, image);
     }
 
     @Test(expected = DuplicatedImageTypeOnDatabaseException.class)

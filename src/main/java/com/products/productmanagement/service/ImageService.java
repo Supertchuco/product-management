@@ -1,7 +1,6 @@
 package com.products.productmanagement.service;
 
 import com.products.productmanagement.entity.Image;
-import com.products.productmanagement.entity.Product;
 import com.products.productmanagement.exception.*;
 import com.products.productmanagement.repository.ImageRepository;
 import org.apache.commons.collections4.CollectionUtils;
@@ -44,10 +43,10 @@ public class ImageService {
         }
     }
 
-    public Collection<Image> findImageByType(String type) {
+    public Image findImageByType(String type) {
         Collection<Image> images = imageRepository.findByImageType(type);
         validateRepeatedImagesOnDatabase(images, type);
-        return images;
+        return (images.isEmpty()) ? null : images.iterator().next();
     }
 
     public Collection<Image> findAllImages() {
@@ -94,4 +93,5 @@ public class ImageService {
             throw new ImageAssociatedProductException(String.format("Unable to delete image with this type [%s], because this Image is associated with a Product(s)", image.getImageType()));
         }
     }
+
 }

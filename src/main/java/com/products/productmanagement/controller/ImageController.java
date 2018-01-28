@@ -18,7 +18,7 @@ public class ImageController {
 
     @RequestMapping(value = "/findByType/{imageType}", method = RequestMethod.GET)
     public @ResponseBody
-    Collection<Image> findProductByType(@PathVariable("imageType") String type) {
+    Image findProductByType(@PathVariable("imageType") String type) {
         return imageService.findImageByType(type);
     }
 

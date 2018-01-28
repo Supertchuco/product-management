@@ -1,0 +1,7 @@
+{
+  "productName": "Duni Guarana",
+  "productDescription": "refrigerante",
+  "parentProduct":{
+    "productName":"Fanta Uva"
+  }
+}

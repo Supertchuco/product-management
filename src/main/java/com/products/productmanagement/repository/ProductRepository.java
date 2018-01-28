@@ -12,13 +12,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     Collection<Product> findAll();
 
-    Product findByProductId(int id);
-
     @Transactional
     void deleteByProductName(String name);
-
-    @Transactional
-    void deleteByProductId(int id);
 
     @Transactional
     Product save(Product product);

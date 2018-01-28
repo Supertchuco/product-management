@@ -5,13 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 @Data
 @Entity(name = "Product")
 @Table(name = "Product")
 @NoArgsConstructor
-public class Product {
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue
@@ -28,19 +29,8 @@ public class Product {
     @JsonManagedReference
     private Collection<Image> images;
 
-/*    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="parentProduct")
-    @JsonManagedReference
-    private Product parentProduct;*/
-
-/*
-    @ManyToOne(cascade = { CascadeType.ALL })
-    @JsonManagedReference
-    @JoinTable(name = "parent_product", joinColumns = { @JoinColumn(name = "product_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "parent_product_id") })
+    @ManyToOne(cascade = CascadeType.ALL)
     private Product parentProduct;
-*/
-
 
     public Product(String productName, String productDescription) {
         this.productName = productName;
@@ -52,4 +42,5 @@ public class Product {
         this.productDescription = productDescription;
         this.images = images;
     }
+
 }

@@ -1,4 +1,7 @@
 {
   "productName": "Tecate",
-  "productDescription": "cerveja"
+  "productDescription": "cerveja",
+  "parentProduct":{
+    "productName":"Kaiser"
+  }
 }

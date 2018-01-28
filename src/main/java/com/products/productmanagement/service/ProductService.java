@@ -4,6 +4,7 @@ import com.products.productmanagement.entity.Product;
 import com.products.productmanagement.exception.*;
 import com.products.productmanagement.repository.ProductRepository;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,7 @@ public class ProductService {
         if (CollectionUtils.isNotEmpty(databaseProducts)) {
             throw new ProductNameAlreadyExistException(String.format("Product with this name [%s] already exist", product.getProductName()));
         } else {
+            product.setParentProduct(findParentProductOnDatabase((Objects.isNull(product.getParentProduct()) ? null : product.getParentProduct().getProductName())));
             try {
                 product.setImages(imageService.buildImagesCollectionsToInsertProductOnDatabase(product.getImages()));
                 return productRepository.save(product);
@@ -55,10 +57,10 @@ public class ProductService {
         }
     }
 
-    public Collection<Product> findProductByName(String name) {
-        Collection<Product> databaseProducts = productRepository.findByProductName(name);
-        validateRepeatedProductsOnDatabase(databaseProducts, name);
-        return databaseProducts;
+    public Product findProductByName(String name) {
+        Collection<Product> products = productRepository.findByProductName(name);
+        validateRepeatedProductsOnDatabase(products, name);
+        return (products.isEmpty()) ? null : products.iterator().next();
     }
 
     public Collection<Product> findAllProducts() {
@@ -86,6 +88,18 @@ public class ProductService {
         if (CollectionUtils.size(products) > 1) {
             throw new DuplicatedProductNameOnDatabaseException(String.format(" Database Error - this product name [%s] is duplicated in database", productName));
         }
+    }
+
+    private Product findParentProductOnDatabase(String parentProductName) {
+        if (StringUtils.isNotBlank(parentProductName)) {
+            Collection<Product> databaseProducts = productRepository.findByProductName(parentProductName);
+            if (databaseProducts.isEmpty()) {
+                throw new ParentProductNotFoundException(String.format("Unable to find parent product with name %s", parentProductName));
+            }
+            validateRepeatedProductsOnDatabase(databaseProducts, parentProductName);
+            return databaseProducts.iterator().next();
+        }
+        return null;
     }
 
 }

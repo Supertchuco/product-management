@@ -39,7 +39,7 @@ public class EndToEndProductIT {
     }
 
     @Test
-    public void shouldReturn200WhenProductInsertWithoutImage() {
+    public void shouldReturn200WhenInsertProductWithoutImage() {
         String payload = readJSON("request/product/productInsertWithoutImage200StatusResponseRequest.json");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -49,13 +49,34 @@ public class EndToEndProductIT {
     }
 
     @Test
-    public void shouldReturn200WhenProductInsertWithImage() {
+    public void shouldReturn200WhenInsertProductWithImage() {
         String payload = readJSON("request/product/productInsertWithImage200StatusResponseRequest.json");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<String>(payload, headers);
         ResponseEntity<String> response = testRestTemplate.exchange(requestEndpoint + "/save", HttpMethod.POST, entity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void shouldReturn200WhenInsertProductWithParentProduct() {
+        String payload = readJSON("request/product/productInsertWithParentProduct200StatusResponseRequest.json");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(payload, headers);
+        ResponseEntity<String> response = testRestTemplate.exchange(requestEndpoint + "/save", HttpMethod.POST, entity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void shouldReturn400WhenInsertProductWithParentProductNotFound() {
+        String payload = readJSON("request/product/productInsertWithParentProductNotFound400StatusResponseRequest.json");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(payload, headers);
+        ResponseEntity<String> response = testRestTemplate.exchange(requestEndpoint + "/save", HttpMethod.POST, entity, String.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(true, StringUtils.contains(response.toString(), "Unable to find parent product with name Fanta Uva"));
     }
 
     @Test
@@ -69,7 +90,7 @@ public class EndToEndProductIT {
     }
 
     @Test
-    public void shouldReturn200WhenEditProductNameInDatabase() {
+    public void shouldReturn200WhenEditProductInDatabase() {
         String payload = readJSON("request/product/productInsertWithoutImage200StatusAndExistInDatabaseResponseRequest.json");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -102,7 +123,7 @@ public class EndToEndProductIT {
         restTemplate.setRequestFactory(requestFactory);
         ResponseEntity<String> response = restTemplate.exchange(requestEndpoint + "/findByName/Sukest", HttpMethod.GET, entity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(true, StringUtils.contains(response.toString(), "[]"));
+        assertEquals(true, !StringUtils.contains(response.toString(), "Sukest"));
     }
 
     @Test
@@ -129,7 +150,6 @@ public class EndToEndProductIT {
         ResponseEntity<String> response = restTemplate.exchange(requestEndpoint + "/findAll", HttpMethod.GET, entity, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(true, StringUtils.contains(response.toString(), "Tecate"));
-        assertEquals(true, StringUtils.contains(response.toString(), "Tang"));
         assertEquals(true, StringUtils.contains(response.toString(), "Fresh"));
         assertEquals(true, StringUtils.contains(response.toString(), "Glub"));
     }

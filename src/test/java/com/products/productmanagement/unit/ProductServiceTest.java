@@ -91,15 +91,15 @@ public class ProductServiceTest {
         Mockito.when(productRepository.findByProductName("TestProductName")).thenReturn(new ArrayList<Product>() {{
             add(productFoundDB);
         }});
-        Collection<Product> products = productService.findProductByName("TestProductName");
-        assertEquals(products.iterator().next().getProductName(), productFoundDB.getProductName());
-        assertEquals(products.iterator().next().getProductDescription(), productFoundDB.getProductDescription());
+        Product product = productService.findProductByName("TestProductName");
+        assertEquals(product.getProductName(), productFoundDB.getProductName());
+        assertEquals(product.getProductDescription(), productFoundDB.getProductDescription());
     }
 
     @Test
     public void findProductByNameWhenNotFoundOnDatabaseTest() {
-        Collection<Product> products = productService.findProductByName("TestProductName");
-        assertEquals(0, products.size());
+       Product product = productService.findProductByName("TestProductName");
+        assertEquals(null, product);
     }
 
     @Test(expected = DuplicatedProductNameOnDatabaseException.class)

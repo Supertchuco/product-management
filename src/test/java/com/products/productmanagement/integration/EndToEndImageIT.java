@@ -58,7 +58,6 @@ public class EndToEndImageIT {
         assertEquals(true, StringUtils.contains(response.toString(), "png"));
         assertEquals(true, StringUtils.contains(response.toString(), "photo-3"));
         assertEquals(true, StringUtils.contains(response.toString(), "jpeg"));
-        // assertEquals(true, StringUtils.contains(response.toString(), "jpeg"));
     }
 
     @Test

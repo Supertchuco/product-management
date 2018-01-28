@@ -31,6 +31,13 @@ public class ExceptionResourceHandler {
         return createErrorMessage(exception.getMessage());
     }
 
+    @ExceptionHandler(ParentProductNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public Error parentProductNotFoundException(ParentProductNotFoundException exception) {
+        return createErrorMessage(exception.getMessage());
+    }
+
     @ExceptionHandler(ProductNameAlreadyExistException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody

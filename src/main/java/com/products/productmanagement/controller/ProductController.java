@@ -17,7 +17,7 @@ public class ProductController {
 
     @RequestMapping(value = "/findByName/{productName}", method = RequestMethod.GET)
     public @ResponseBody
-    Collection<Product> findProductByName(@PathVariable("productName") String productName) {
+    Product findProductByName(@PathVariable("productName") String productName) {
         return productService.findProductByName(productName);
     }
 
