@@ -34,13 +34,13 @@ Note: You can run the tests through Intellij IDE or call direct in Gradle (execu
 Step to running the project:
 
  * Intellij IDE:
-    -Import the project like Gradlew Project;
-    -Mark the check box Enable Annotation Processing in Settings->Build->Execution->Deployment->Compiler->Annotation Processor
-    -Run the major class ProductManagementApplication.
+    - Import the project like Gradlew Project;
+    - Mark the check box Enable Annotation Processing in Settings->Build->Execution->Deployment->Compiler->Annotation Processor
+    - Run the major class ProductManagementApplication.
 
  * Without an IDE:
-  - Execute the command "gradlew clean build" inside the project in a cmd prompt;
-  - Execute command "java -jar <Jar Name>.jar" in "product-management\build\libs" directory.
+   - Execute the command "gradlew clean build" inside the project in a cmd prompt;
+   - Execute command "java -jar <Jar Name>.jar" in "product-management\build\libs" directory.
 
   In both of cases you can check if the application is running accessing this url "http://localhost:8090/productManagement/api/health" (actuator feature);
 
