@@ -40,7 +40,7 @@ Step to running the project:
 
  * Without an IDE:
    - Execute the command "gradlew clean build" inside the project in a cmd prompt;
-   - Execute command "java -jar <Jar Name>.jar" in "product-management\build\libs" directory.
+   - Execute command "java -jar Jar_Name.jar" in "product-management\build\libs" directory.
 
   In both of cases you can check if the application is running accessing this url "http://localhost:8090/productManagement/api/health" (actuator feature);
 
