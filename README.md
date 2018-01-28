@@ -9,24 +9,24 @@ This is an API to  products management, I developed this API using Intellij IDE 
 	- Spring rest.
 
 This API allow these operations:
-    * Product:
-        - Insert a product "http://localhost:8090/productManagement/api/product/save" (you need to send a payload);
-        - Delete a product "http://localhost:8090/productManagement/api/product/deleteByName/{productName}";
-        - List all products "http://localhost:8090/productManagement/api/product/findAll";
-        - List a specific product by name "http://localhost:8090/productManagement/api/product/findByName/{productName}";
-        - Modify a product "http://localhost:8090/productManagement/api/product/editByName/{productName}" (you need to send a payload).
-    * Image:
-        - Insert a image "http://localhost:8090/productManagement/api/image/save" (you need to send a payload);
-        - Delete a image "http://localhost:8090/productManagement/api/image/deleteByType/{imageType}";
-        - List all images "http://localhost:8090/productManagement/api/image/findAll";
-        - List a specific image by type "http://localhost:8090/productManagement/api/image/findByType/{imageType}";
-        - Modify a image "http://localhost:8090/productManagement/api/image/editByType/{imageType}" (you need to send a payload).
+ * Product:
+	- Insert a product "http://localhost:8090/productManagement/api/product/save" (you need to send a payload);
+	- Delete a product "http://localhost:8090/productManagement/api/product/deleteByName/{productName}";
+	- List all products "http://localhost:8090/productManagement/api/product/findAll";
+	- List a specific product by name "http://localhost:8090/productManagement/api/product/findByName/{productName}";
+	- Modify a product "http://localhost:8090/productManagement/api/product/editByName/{productName}" (you need to send a payload).
+ * Image:
+	- Insert a image "http://localhost:8090/productManagement/api/image/save" (you need to send a payload);
+	- Delete a image "http://localhost:8090/productManagement/api/image/deleteByType/{imageType}";
+	- List all images "http://localhost:8090/productManagement/api/image/findAll";
+	- List a specific image by type "http://localhost:8090/productManagement/api/image/findByType/{imageType}";
+	- Modify a image "http://localhost:8090/productManagement/api/image/editByType/{imageType}" (you need to send a payload).
 
 You can check the all rest operations and the payloads through Swagger, to do it you need to running the application and access this url
 "http://localhost:8090/productManagement/api/swagger-ui.html"
 
 This project have these kind of tests:
- -Integration Tests (16 tests): EndToEndImageIT and EndToEndProductIT classes;
+ - Integration Tests (16 tests): EndToEndImageIT and EndToEndProductIT classes;
  - Unity Tests (26 tests): ImageServiceTest and ProductServiceTest classes.
 
 Note: You can run the tests through Intellij IDE or call direct in Gradle (execute the command "gradlew clean test" in cmd prompt)
